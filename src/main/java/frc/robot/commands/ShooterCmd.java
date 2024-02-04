@@ -2,6 +2,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants.DeviceConstants;
 import frc.robot.subsystems.ShooterSubsystem;
 
 public class ShooterCmd extends Command {
@@ -20,10 +21,8 @@ public class ShooterCmd extends Command {
 
 	@Override
 	public void execute() {
-		if (this.controller.getAButton()) {
-			this.shooterSubsystem.setSpeed(1.0);
-		} else if (this.controller.getBButton()) {
-			this.shooterSubsystem.setSpeed(-1.0);
+		if (this.controller.getLeftBumper()) {
+			this.shooterSubsystem.setSpeed(DeviceConstants.SHOOTER);
 		} else {
 			this.shooterSubsystem.stopModules();
 		}

@@ -2,15 +2,15 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.DeviceId.Shooter;
-import frc.robot.lib.LazySpark;
+import frc.robot.lib.LazyTalon;
 
 public class ShooterSubsystem extends SubsystemBase {
-    private final LazySpark leftMotor;
-    private final LazySpark rightMotor;
+    private final LazyTalon leftMotor;
+    private final LazyTalon rightMotor;
 
     public ShooterSubsystem() {
-        this.leftMotor = new LazySpark(Shooter.left, false);
-        this.rightMotor = new LazySpark(Shooter.right, true);
+        this.leftMotor = new LazyTalon(Shooter.left, false);
+        this.rightMotor = new LazyTalon(Shooter.right, false);
     }
 
     public void setSpeed(double speed) {

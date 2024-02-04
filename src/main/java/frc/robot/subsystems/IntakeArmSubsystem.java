@@ -1,16 +1,16 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.DeviceId.Intake;
+import frc.robot.DeviceId.IntakeArm;
 import frc.robot.lib.LazyTalon;
 
-public class IntakeSubsystem extends SubsystemBase {
+public class IntakeArmSubsystem extends SubsystemBase {
     private final LazyTalon leftMotor;
     private final LazyTalon rightMotor;
 
-    public IntakeSubsystem() {
-        this.leftMotor = new LazyTalon(Intake.left, true);
-        this.rightMotor = new LazyTalon(Intake.right, true);
+    public IntakeArmSubsystem() {
+        this.leftMotor = new LazyTalon(IntakeArm.left, false);
+        this.rightMotor = new LazyTalon(IntakeArm.right, true);
     }
 
     public void setSpeed(double speed) {

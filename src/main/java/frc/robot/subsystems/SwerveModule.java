@@ -10,11 +10,11 @@ import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.SwerveConstants;
 import frc.robot.lib.IDashboardProvider;
-import frc.robot.lib.LazyTalon;
+import frc.robot.lib.LazySwerveTalon;
 
-public class SwerveModule implements IDashboardProvider{
-    private final LazyTalon driveMotor;
-    private final LazyTalon turnMotor;
+public class SwerveModule implements IDashboardProvider {
+    private final LazySwerveTalon driveMotor;
+    private final LazySwerveTalon turnMotor;
 
     private final CANcoder turnEncoder;
 
@@ -33,8 +33,8 @@ public class SwerveModule implements IDashboardProvider{
     ){
         this.registerDashboard();
 
-        this.driveMotor = new LazyTalon(driveMotorPort, driveMotorReverse, SwerveConstants.DRIVE_GEAR_RATIO);
-        this.turnMotor = new LazyTalon(turnMotorPort, turnMotorReverse, SwerveConstants.TURN_GEAR_RATIO);
+        this.driveMotor = new LazySwerveTalon(driveMotorPort, driveMotorReverse, SwerveConstants.DRIVE_GEAR_RATIO);
+        this.turnMotor = new LazySwerveTalon(turnMotorPort, turnMotorReverse, SwerveConstants.TURN_GEAR_RATIO);
 
         this.turnEncoder = new CANcoder(turnEncoderPort);
 
@@ -85,28 +85,10 @@ public class SwerveModule implements IDashboardProvider{
         this.turnMotor.set(this.turnOutput);
     }
 
-    public void setAutoDesiredState(SwerveModuleState desiredState) {
-        if (Math.abs(desiredState.speedMetersPerSecond) < 0.001) {
-            this.stop();
-            return;
-        }
-        SwerveModuleState state = SwerveModuleState.optimize(desiredState, this.getState().angle);
-
-        this.driveOutput = state.speedMetersPerSecond;
-        this.turnOutput = this.turnPidController.calculate(this.turnMotor.getPosition().getValue(), state.angle.getDegrees());
-
-        this.driveMotor.set(this.driveOutput);
-        this.turnMotor.set(this.turnOutput);
-    }
-
     @Override
     public void putDashboard() {
-        SmartDashboard.putNumber(this.motorName + " DrivePosition", this.driveMotor.getPosition().getValue());
-        SmartDashboard.putNumber(this.motorName + " DriveVelocity", this.driveMotor.getVelocity().getValue());
+        SmartDashboard.putNumber(this.motorName + " LinearSpeed", this.getState().speedMetersPerSecond);
         SmartDashboard.putNumber(this.motorName + " TurnPosition", this.getTurnPosition());
-        SmartDashboard.putNumber(this.motorName + " TurnVelocity", this.turnEncoder.getVelocity().getValue());
-        SmartDashboard.putNumber(this.motorName + " DriveMotor", this.driveOutput);
-        SmartDashboard.putNumber(this.motorName + " TurnMotor", this.turnOutput);
     }
 
     public void stop() {

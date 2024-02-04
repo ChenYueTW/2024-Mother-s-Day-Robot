@@ -18,6 +18,13 @@ public final class Constants {
 		public static final double DRIVE_VELOCITY_CONVERSION_FACTOR = (1.0 / DRIVE_GEAR_RATIO / 2048) * WHEEL_RADIUS * Math.PI * 10;
 		public static final double DRIVE_POSITION_CONVERSION_FACTOR = (1.0 / DRIVE_GEAR_RATIO / 2048) * WHEEL_RADIUS * Math.PI;
 	}
+
+	public static final class DeviceConstants {
+		public static final double INTAKE = 0.4;
+		public static final double RELEASE_SPEED = -1;
+		public static final double SHOOTER = 1.0;
+		public static final double SHOOTER_ARM = 0.5;
+	}
 	
 	public static final class MotorReverse {
 		public static final boolean FRONT_LEFT_DRIVE = true;
@@ -46,7 +53,7 @@ public final class Constants {
     );
 
 	public static final class AutoConstants {
-		public static final double PHYSICAL_MAX_SPEED_METERS_PER_SECOND = 1.0; // 最大速度m/s
+		public static final double PHYSICAL_MAX_SPEED_METERS_PER_SECOND = 4.2; // 最大速度m/s
 		public static final double PHYSICAL_MAX_ACCELERATION_METERS_PER_SECONE = 0.5; // 最大加速度m/s^2
 	}
 

@@ -1,6 +1,9 @@
 package frc.robot.subsystems;
 
 import com.kauailabs.navx.frc.AHRS;
+import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
+import com.pathplanner.lib.util.ReplanningConfig;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
@@ -8,12 +11,14 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.DeviceId.Swerve;
 import frc.robot.DeviceId.Encoder;
 import frc.robot.Constants.MotorReverse;
 import frc.robot.Constants.SwerveConstants;
+import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.EncoderOffset;
 import frc.robot.Constants;
 
@@ -68,6 +73,25 @@ public class SwerveSubsystem extends SubsystemBase{
         );
         this.wait(1000);
         this.gyro.reset();
+
+        AutoBuilder.configureHolonomic(
+            this::getPose, 
+            this::resetPose,
+            this::getSpeeds,
+            this::autoDrive, 
+            new HolonomicPathFollowerConfig(
+                AutoConstants.PHYSICAL_MAX_SPEED_METERS_PER_SECOND,
+                0.3,
+                new ReplanningConfig(true, true)
+            ),
+            () -> {
+                if (DriverStation.getAlliance().isPresent()) {
+                    return DriverStation.getAlliance().get() == DriverStation.Alliance.Red;
+                }
+                return false;
+            },
+            this
+        );
     }
 
     @Override
@@ -83,20 +107,18 @@ public class SwerveSubsystem extends SubsystemBase{
         this.setModuleState(state);
     }
 
+    public void autoDrive(ChassisSpeeds relativeSpeed) {
+        ChassisSpeeds targetSpeed = ChassisSpeeds.discretize(relativeSpeed, 0.02);
+        SwerveModuleState state[] = Constants.swerveDriveKinematics.toSwerveModuleStates(targetSpeed);
+        this.setModuleState(state);
+    }
+
     public void setModuleState(SwerveModuleState[] states) {
         SwerveDriveKinematics.desaturateWheelSpeeds(states, SwerveConstants.PHYSICAL_MAX_SPEED_METERS_PER_SECOND);
         this.frontLeft.setDesiredState(states[0]);
         this.frontRight.setDesiredState(states[1]);
         this.backLeft.setDesiredState(states[2]);
         this.backRight.setDesiredState(states[3]);
-    }
-
-    public void setAutoModuleState(ChassisSpeeds speeds) {
-        SwerveModuleState[] state = Constants.swerveDriveKinematics.toSwerveModuleStates(speeds);
-        this.frontLeft.setAutoDesiredState(state[0]);
-        this.frontRight.setAutoDesiredState(state[1]);
-        this.backLeft.setAutoDesiredState(state[2]);
-        this.backRight.setAutoDesiredState(state[3]);
     }
 
     public SwerveModulePosition[] getModulePosition() {
@@ -119,6 +141,10 @@ public class SwerveSubsystem extends SubsystemBase{
 
     public Pose2d getPose() {
         return this.odometry.getPoseMeters();
+    }
+
+    public void resetPose(Pose2d pose) {
+        this.odometry.resetPosition(this.gyro.getRotation2d(), this.getModulePosition(), pose);
     }
 
     public ChassisSpeeds getSpeeds() {
