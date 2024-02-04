@@ -21,9 +21,10 @@ public final class Constants {
 
 	public static final class DeviceConstants {
 		public static final double INTAKE = 0.4;
-		public static final double RELEASE_SPEED = -1;
+		public static final double INTAKE_RELEASE = -1;
 		public static final double SHOOTER = 1.0;
 		public static final double SHOOTER_ARM = 0.5;
+		public static final double INTAKE_ARM_MAX = 0.25;
 	}
 	
 	public static final class MotorReverse {

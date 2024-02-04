@@ -24,7 +24,7 @@ public class IntakeCmd extends Command {
 		if (this.controller.getBButton()) {
 			this.intakeSubsystem.setSpeed(DeviceConstants.INTAKE);
 		} else if (this.controller.getXButton()) {
-			this.intakeSubsystem.setSpeed(-DeviceConstants.RELEASE_SPEED);
+			this.intakeSubsystem.setSpeed(-DeviceConstants.INTAKE_RELEASE);
 		} else {
 			this.intakeSubsystem.stopModules();
 		}

@@ -4,6 +4,7 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
+import frc.robot.Constants.DeviceConstants;
 import frc.robot.subsystems.IntakeArmSubsystem;
 
 public class IntakeArmCmd extends Command {
@@ -22,7 +23,7 @@ public class IntakeArmCmd extends Command {
 
 	@Override
 	public void execute() {
-		double speed = MathUtil.applyDeadband(this.controller.getLeftY(), Constants.DEAD_BAND);
+		double speed = MathUtil.applyDeadband(this.controller.getLeftY(), Constants.DEAD_BAND) * DeviceConstants.INTAKE_ARM_MAX;
 		this.intakeArmSubsystem.setSpeed(speed);
 	}
 
