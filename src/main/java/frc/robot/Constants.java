@@ -2,6 +2,7 @@ package frc.robot;
 
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
+import edu.wpi.first.networktables.PubSub;
 
 public final class Constants {
 	public static final class SwerveConstants {
@@ -23,8 +24,20 @@ public final class Constants {
 		public static final double INTAKE = 0.4;
 		public static final double INTAKE_RELEASE = -1;
 		public static final double SHOOTER = 1.0;
-		public static final double SHOOTER_ARM = 0.5;
-		public static final double INTAKE_ARM_MAX = 0.25;
+
+		public static final double SHOOTER_ARM_MAX_LIMIT = 60.0;
+		public static final double SHOOTER_ARM_MIN_LIMIT = 0.0;
+		public static final double SHOOTER_ARM_ENCODER_OFFSET = 351.23;
+		public static final double SHOOTER_ARM_GEAR_RATIO = 10.0 / 22.0;
+		public static final double SHOOTER_ARM_COEFFIFIENT = 0.07;
+		public static final boolean SHOOTER_ARM_REVERSE = true;
+
+		public static final double INTAKE_ARM_MAX_TARGET = 173.0;
+		public static final double INTAKE_ARM_MIN_TARGET = 13.0;
+		public static final double INTAKE_ARM_OFFSET = 147.1;
+		public static final double INTAKE_ARM_GEAR_RATIO = 18.0 / 22.0;
+		public static final double INTAKE_ARM_COEFFIFIENT = 0.07;
+		public static final boolean INTAKE_ARM_REVERSE = false;
 	}
 	
 	public static final class MotorReverse {

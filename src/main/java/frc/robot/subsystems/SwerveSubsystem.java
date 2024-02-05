@@ -22,7 +22,7 @@ import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.EncoderOffset;
 import frc.robot.Constants;
 
-public class SwerveSubsystem extends SubsystemBase{
+public class SwerveSubsystem extends SubsystemBase {
     private final SwerveModule frontLeft;
     private final SwerveModule frontRight;
     private final SwerveModule backLeft;

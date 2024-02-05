@@ -37,7 +37,7 @@ public class RobotContainer {
 		this.shooterSubsystem.setDefaultCommand(this.shooterCmd);
 		this.shooterArmSubsystem.setDefaultCommand(this.shooterArmCmd);
 		this.intakeSubsystem.setDefaultCommand(this.intakeCmd);
-		this.intakeSubsystem.setDefaultCommand(this.intakeArmCmd);
+		this.intakeArmSubsystem.setDefaultCommand(this.intakeArmCmd);
 	}
 
 	public Command getAutonomousCommand() {

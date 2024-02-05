@@ -9,8 +9,8 @@ public class ShooterSubsystem extends SubsystemBase {
     private final LazyTalon rightMotor;
 
     public ShooterSubsystem() {
-        this.leftMotor = new LazyTalon(Shooter.left, false);
-        this.rightMotor = new LazyTalon(Shooter.right, false);
+        this.leftMotor = new LazyTalon(Shooter.left, false, false);
+        this.rightMotor = new LazyTalon(Shooter.right, false, false);
     }
 
     public void setSpeed(double speed) {

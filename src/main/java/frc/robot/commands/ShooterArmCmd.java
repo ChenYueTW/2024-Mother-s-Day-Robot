@@ -22,8 +22,14 @@ public class ShooterArmCmd extends Command {
 
 	@Override
 	public void execute() {
-		double speed = MathUtil.applyDeadband(this.controller.getRightY(), Constants.DEAD_BAND);
-		this.shooterArmSubsystem.setSpeed(speed);
+		double value = MathUtil.applyDeadband(this.controller.getRightY(), Constants.DEAD_BAND);
+		if (value > 0) {
+			this.shooterArmSubsystem.setSpeed(1.0);
+		} else if (value < 0) {
+			this.shooterArmSubsystem.setSpeed(-1.0);
+		} else {
+			this.shooterArmSubsystem.stopModules();
+		}		
 	}
 
 	@Override

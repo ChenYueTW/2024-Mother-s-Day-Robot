@@ -23,8 +23,14 @@ public class IntakeArmCmd extends Command {
 
 	@Override
 	public void execute() {
-		double speed = MathUtil.applyDeadband(this.controller.getLeftY(), Constants.DEAD_BAND) * DeviceConstants.INTAKE_ARM_MAX;
-		this.intakeArmSubsystem.setSpeed(speed);
+		double value = MathUtil.applyDeadband(this.controller.getLeftY(), Constants.DEAD_BAND);
+		if (value < 0 ) {
+			this.intakeArmSubsystem.toGoalDeg(DeviceConstants.INTAKE_ARM_MAX_TARGET);
+		} else if (value > 0) {
+			this.intakeArmSubsystem.toGoalDeg(DeviceConstants.INTAKE_ARM_MIN_TARGET);
+		} else {
+			this.intakeArmSubsystem.stopModules();
+		}
 	}
 
 	@Override

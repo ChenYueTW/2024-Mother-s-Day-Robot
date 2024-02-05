@@ -9,8 +9,8 @@ public class IntakeSubsystem extends SubsystemBase {
     private final LazyTalon rightMotor;
 
     public IntakeSubsystem() {
-        this.leftMotor = new LazyTalon(Intake.left, true);
-        this.rightMotor = new LazyTalon(Intake.right, true);
+        this.leftMotor = new LazyTalon(Intake.left, true, false);
+        this.rightMotor = new LazyTalon(Intake.right, true, false);
     }
 
     public void setSpeed(double speed) {
