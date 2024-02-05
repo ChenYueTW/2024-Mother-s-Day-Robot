@@ -30,6 +30,10 @@ public final class DeviceId {
     }
     public final class IntakeArm {
         public static final int left = 20;
-        public static final int right = 21;
+        public static final int right = 19;
+    }
+    public final class Telescope {
+        public static final int left = 21;
+        public static final int right = 22;
     }
 }

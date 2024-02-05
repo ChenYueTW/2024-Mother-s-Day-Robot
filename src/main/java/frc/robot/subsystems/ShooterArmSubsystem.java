@@ -2,16 +2,19 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DeviceConstants;
 import frc.robot.DeviceId.ShooterArm;
+import frc.robot.lib.IDashboardProvider;
 import frc.robot.lib.LazyTalon;
 
-public class ShooterArmSubsystem extends SubsystemBase {
+public class ShooterArmSubsystem extends SubsystemBase implements IDashboardProvider {
     private final LazyTalon motor;
     private final DutyCycleEncoder armEncoder;
 
     public ShooterArmSubsystem() {
+        this.registerDashboard();
         this.motor = new LazyTalon(ShooterArm.motor, false, true);
         this.armEncoder = new DutyCycleEncoder(0);
     }
@@ -33,5 +36,10 @@ public class ShooterArmSubsystem extends SubsystemBase {
 
     public void stopModules() {
         this.motor.stopMotor();
+    }
+
+    @Override
+    public void putDashboard() {
+        SmartDashboard.putNumber("ShooterArm Elevation", this.getDegrees());
     }
 }

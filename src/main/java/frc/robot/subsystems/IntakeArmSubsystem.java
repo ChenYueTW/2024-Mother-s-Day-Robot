@@ -7,15 +7,17 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DeviceConstants;
 import frc.robot.DeviceId.IntakeArm;
+import frc.robot.lib.IDashboardProvider;
 import frc.robot.lib.LazyTalon;
 
-public class IntakeArmSubsystem extends SubsystemBase {
+public class IntakeArmSubsystem extends SubsystemBase implements IDashboardProvider {
     private final LazyTalon leftMotor;
     private final LazyTalon rightMotor;
     private final DutyCycleEncoder encoder;
     private final PIDController pid;
 
     public IntakeArmSubsystem() {
+        this.registerDashboard();
         this.leftMotor = new LazyTalon(IntakeArm.left, false, true);
         this.rightMotor = new LazyTalon(IntakeArm.right, true, true);
         this.encoder = new DutyCycleEncoder(1);
@@ -36,5 +38,10 @@ public class IntakeArmSubsystem extends SubsystemBase {
     public void stopModules() {
         this.leftMotor.stopMotor();
         this.rightMotor.stopMotor();
+    }
+
+    @Override
+    public void putDashboard() {
+        SmartDashboard.putNumber("Intake Deg", this.getDegrees());
     }
 }

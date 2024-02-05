@@ -2,7 +2,6 @@ package frc.robot;
 
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
-import edu.wpi.first.networktables.PubSub;
 
 public final class Constants {
 	public static final class SwerveConstants {
@@ -38,6 +37,9 @@ public final class Constants {
 		public static final double INTAKE_ARM_GEAR_RATIO = 18.0 / 22.0;
 		public static final double INTAKE_ARM_COEFFIFIENT = 0.07;
 		public static final boolean INTAKE_ARM_REVERSE = false;
+
+		public static final double TELESCOPE_LIMIT = 1200.0;
+		public static final double TELESCOPE_SPEED = 0.2;
 	}
 	
 	public static final class MotorReverse {
