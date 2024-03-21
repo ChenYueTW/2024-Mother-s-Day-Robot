@@ -52,7 +52,9 @@ public class SwerveModule implements IDashboardProvider {
     }
 
     public double getTurnPosition() {
-        return Units.rotationsToDegrees(this.turnEncoder.getAbsolutePosition().getValue()) - this.turningEncoderOffset;
+        double value = Units.rotationsToDegrees(this.turnEncoder.getAbsolutePosition().getValue()) - this.turningEncoderOffset;
+        value %= 360.0;
+        return value > 180 ? value - 360 : value;
     }
 
     public SwerveModuleState getState() {

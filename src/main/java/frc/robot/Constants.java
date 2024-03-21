@@ -18,29 +18,6 @@ public final class Constants {
 		public static final double DRIVE_VELOCITY_CONVERSION_FACTOR = (1.0 / DRIVE_GEAR_RATIO / 2048) * WHEEL_RADIUS * Math.PI * 10;
 		public static final double DRIVE_POSITION_CONVERSION_FACTOR = (1.0 / DRIVE_GEAR_RATIO / 2048) * WHEEL_RADIUS * Math.PI;
 	}
-
-	public static final class DeviceConstants {
-		public static final double INTAKE = 0.4;
-		public static final double INTAKE_RELEASE = -1;
-		public static final double SHOOTER = 1.0;
-
-		public static final double SHOOTER_ARM_MAX_LIMIT = 60.0;
-		public static final double SHOOTER_ARM_MIN_LIMIT = 0.0;
-		public static final double SHOOTER_ARM_ENCODER_OFFSET = 351.23;
-		public static final double SHOOTER_ARM_GEAR_RATIO = 10.0 / 22.0;
-		public static final double SHOOTER_ARM_COEFFIFIENT = 0.07;
-		public static final boolean SHOOTER_ARM_REVERSE = true;
-
-		public static final double INTAKE_ARM_MAX_TARGET = 173.0;
-		public static final double INTAKE_ARM_MIN_TARGET = 13.0;
-		public static final double INTAKE_ARM_OFFSET = 147.1;
-		public static final double INTAKE_ARM_GEAR_RATIO = 18.0 / 22.0;
-		public static final double INTAKE_ARM_COEFFIFIENT = 0.07;
-		public static final boolean INTAKE_ARM_REVERSE = false;
-
-		public static final double TELESCOPE_LIMIT = 1200.0;
-		public static final double TELESCOPE_SPEED = 0.2;
-	}
 	
 	public static final class MotorReverse {
 		public static final boolean FRONT_LEFT_DRIVE = true;
@@ -55,10 +32,10 @@ public final class Constants {
 	}
 
 	public static final class EncoderOffset {
-		public static final double FRONT_LEFT = -139.270751953125;
-		public static final double FRONT_RIGHT = -59.5078125;
-		public static final double BACK_LEFT = -78.949951171875;
-		public static final double BACK_RIGHT = -146.015625;
+		public static final double FRONT_LEFT = 0.002685546875;
+		public static final double FRONT_RIGHT = -0.000732421875;
+		public static final double BACK_LEFT = 0.004150390625;
+		public static final double BACK_RIGHT = 0.00341796875;
 	}
 
 	public static final SwerveDriveKinematics swerveDriveKinematics = new SwerveDriveKinematics(
