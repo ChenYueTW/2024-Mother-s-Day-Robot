@@ -17,4 +17,18 @@ public final class DeviceId {
         public static final int backwardLeft = 11;
         public static final int backwardRight = 12;
     }
+    public final class Shooter {
+        public static final int left = 5;
+        public static final int right = 15;
+    }
+    // TODO
+    public final class Intake {
+        public static final int left = 18;
+        public static final int right = 19;
+    }
+    public final class IntakeArm {
+        public static final int left = 15;
+        public static final int right = 16;
+        public static final int encoder = 17;
+    }
 }
