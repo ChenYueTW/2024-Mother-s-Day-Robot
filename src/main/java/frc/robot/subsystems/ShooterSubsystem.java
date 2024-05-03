@@ -11,20 +11,22 @@ public class ShooterSubsystem extends SubsystemBase implements IDashboardProvide
     private final LazyTalon leftMotor;
     private final LazyTalon rightMotor;
     private final PIDController shooterPid;
-    private double speed;
 
     public ShooterSubsystem() {
         this.registerDashboard();
-        this.leftMotor = new LazyTalon(Shooter.left, false, false);
-        this.rightMotor = new LazyTalon(Shooter.right, false, false);
-        this.shooterPid = new PIDController(0.0, 0.0, 0.0);
+        this.leftMotor = new LazyTalon(Shooter.up, false, false);
+        this.rightMotor = new LazyTalon(Shooter.down, false, false);
+        this.shooterPid = new PIDController(0.2, 3.5, 0.0);
     }
 
-    public void shooting(double speed) {
-        double output = this.shooterPid.calculate(this.getAverageSpeed(), speed);
-        this.speed = speed;
-        this.leftMotor.set(output);
-        this.rightMotor.set(output);
+    public void shooting(boolean rotationPerSeconds) {
+        if (rotationPerSeconds) {
+            double output = this.shooterPid.calculate(this.getAverageSpeed(), 100.0);
+            this.leftMotor.set(output);
+            this.rightMotor.set(output);
+        } else {
+            this.stopModules();
+        }
     }
 
     public double getAverageSpeed() {
@@ -36,13 +38,13 @@ public class ShooterSubsystem extends SubsystemBase implements IDashboardProvide
         this.rightMotor.stopMotor();
     }
 
-    public boolean isShooting() {
-        return this.speed != 0;
+    public boolean canShoot() {
+        return this.getAverageSpeed() >= 95.0;
     }
 
     @Override
     public void putDashboard() {
-        SmartDashboard.putNumber("Shooter Average Sp", this.getAverageSpeed());
-        SmartDashboard.putBoolean("Is Shooting", this.isShooting());
+        SmartDashboard.putNumber("AverageSp", this.getAverageSpeed());
+        SmartDashboard.putBoolean("CanShoot", this.canShoot());
     }
 }

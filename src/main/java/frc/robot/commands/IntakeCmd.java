@@ -21,8 +21,8 @@ public class IntakeCmd extends Command {
 
 	@Override
 	public void execute() {
-		if (this.isIntake.get()) this.intakeSubsystem.intake(0.6);
-		else if (this.isOuttake.get()) this.intakeSubsystem.intake(-0.6);
+		if (this.isIntake.get()) this.intakeSubsystem.intake(0.2);
+		else if (this.isOuttake.get()) this.intakeSubsystem.intake(-0.3);
 		else this.intakeSubsystem.stopModules();
 	}
 

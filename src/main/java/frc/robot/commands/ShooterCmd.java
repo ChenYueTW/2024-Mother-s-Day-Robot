@@ -20,8 +20,7 @@ public class ShooterCmd extends Command {
 
 	@Override
 	public void execute() {
-		if (this.isShooter.get()) this.shooterSubsystem.shooting(1.0);
-		else this.shooterSubsystem.shooting(0.0);
+		this.shooterSubsystem.shooting(this.isShooter.get());
 	}
 
 	@Override

@@ -1,5 +1,6 @@
 package frc.robot.subsystems;
 
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -15,18 +16,20 @@ public class IntakeArmSubsystem extends SubsystemBase implements IDashboardProvi
 
     public IntakeArmSubsystem() {
         this.registerDashboard();
-        this.leftMotor = new LazyTalon(IntakeArm.left, false, true);
-        this.rightMotor = new LazyTalon(IntakeArm.right, true, true);
+        this.leftMotor = new LazyTalon(IntakeArm.left, true, true);
+        this.rightMotor = new LazyTalon(IntakeArm.right, false, true);
         this.encoder = new DutyCycleEncoder(IntakeArm.encoder);
     }
 
     public void turnIntake(double speed) {
-        if (LimitDegrees.INTAKE_UP > this.encoder.getAbsolutePosition() && speed < 0) {
+        if (this.getAbsolutePosition() >= 0 & this.getAbsolutePosition() <= LimitDegrees.INTAKE_UP || this.getAbsolutePosition() >= LimitDegrees.INTAKE_DOWN && this.getAbsolutePosition() <= 360.0) {
             this.setSpeed(speed);
-        } else if (LimitDegrees.INTAKE_DOWN < this.encoder.getAbsolutePosition() && speed > 0) {
+        } else if (this.getAbsolutePosition() > LimitDegrees.INTAKE_UP & this.getAbsolutePosition() < 120.0 & speed > 0) {
+            this.setSpeed(speed);
+        } else if (this.getAbsolutePosition() < LimitDegrees.INTAKE_DOWN & this.getAbsolutePosition() > 220.0 & speed < 0) {
             this.setSpeed(speed);
         } else {
-            this.stopModules();
+            this.setSpeed(0.0);
         }
     }
 
@@ -40,8 +43,12 @@ public class IntakeArmSubsystem extends SubsystemBase implements IDashboardProvi
         this.rightMotor.stopMotor();
     }
 
+    public double getAbsolutePosition() {
+        return Units.rotationsToDegrees(this.encoder.getAbsolutePosition()) * LimitDegrees.INTAKE_GEAR_RATIO;
+    }
+
     @Override
     public void putDashboard() {
-        SmartDashboard.putNumber("Intake Arm Deg", this.encoder.getAbsolutePosition());
+        SmartDashboard.putNumber("Intake Arm Deg", this.getAbsolutePosition());
     }
 }

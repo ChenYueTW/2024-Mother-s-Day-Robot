@@ -23,6 +23,6 @@ public class GamepadJoystick extends XboxController {
     }
 
     public double turnIntakeArm() {
-        return MathUtil.applyDeadband(this.getRightY(), Constants.DEAD_BAND);
+        return MathUtil.applyDeadband(this.getLeftY(), Constants.DEAD_BAND) * 0.3;
     }
 }
