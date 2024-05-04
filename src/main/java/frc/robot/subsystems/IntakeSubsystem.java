@@ -43,6 +43,7 @@ public class IntakeSubsystem extends SubsystemBase implements IDashboardProvider
     }
 
     public void outTake() {
+        this.wait(1000);
         this.leftMotor.set(-0.3);
         this.rightMotor.set(-0.3);
     }

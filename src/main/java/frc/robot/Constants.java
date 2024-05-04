@@ -51,9 +51,9 @@ public final class Constants {
 	}
 
 	public static final class LimitDegrees {
-		// 230.9642378650151~360.0 0~105.71925127934492
+		// 228.74622610729202~360.0 0~105.71925127934492
 		public static final double INTAKE_GEAR_RATIO = 18.0 / 22.0;
-		public static final double INTAKE_DOWN = 229.74622610729202;
+		public static final double INTAKE_DOWN = 228.74622610729202;
 		public static final double INTAKE_UP = 105.71925127934492;
 	}
 
