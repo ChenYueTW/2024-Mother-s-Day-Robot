@@ -49,6 +49,6 @@ public class IntakeArmSubsystem extends SubsystemBase implements IDashboardProvi
 
     @Override
     public void putDashboard() {
-        SmartDashboard.putNumber("Intake Arm Deg", this.getAbsolutePosition());
+        SmartDashboard.putNumber("Arm Pose", this.getAbsolutePosition());
     }
 }

@@ -19,7 +19,7 @@ public class GamepadJoystick extends XboxController {
     }
 
     public boolean isOuttake() {
-        return this.getYButton();
+        return this.getXButton();
     }
 
     public double turnIntakeArm() {

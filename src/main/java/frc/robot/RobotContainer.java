@@ -16,7 +16,7 @@ public class RobotContainer {
 
 	private final SwerveSubsystem swerveSubsystem = new SwerveSubsystem();
 	private final ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
-	private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
+	private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem(shooterSubsystem);
 	private final IntakeArmSubsystem intakeArmSubsystem = new IntakeArmSubsystem();
 
 	private final SwerveDriveCmd swerveDriveCmd = new SwerveDriveCmd(swerveSubsystem, driverJoystick);

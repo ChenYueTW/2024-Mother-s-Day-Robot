@@ -21,7 +21,6 @@ public final class DeviceId {
         public static final int up = 13;
         public static final int down = 14;
     }
-    // TODO
     public final class Intake {
         public static final int left = 15;
         public static final int right = 16;

@@ -19,14 +19,18 @@ public class ShooterSubsystem extends SubsystemBase implements IDashboardProvide
         this.shooterPid = new PIDController(0.2, 3.5, 0.0);
     }
 
-    public void shooting(boolean rotationPerSeconds) {
-        if (rotationPerSeconds) {
-            double output = this.shooterPid.calculate(this.getAverageSpeed(), 100.0);
+    public void shooting(boolean isShooting) {
+        if (isShooting) {
+            double output = this.shooterPid.calculate(this.getAverageSpeed(), 90.0);
             this.leftMotor.set(output);
             this.rightMotor.set(output);
         } else {
             this.stopModules();
         }
+    }
+
+    public void shoot() {
+        this.shooting(true);
     }
 
     public double getAverageSpeed() {
@@ -39,7 +43,7 @@ public class ShooterSubsystem extends SubsystemBase implements IDashboardProvide
     }
 
     public boolean canShoot() {
-        return this.getAverageSpeed() >= 95.0;
+        return this.getAverageSpeed() >= 80.0;
     }
 
     @Override

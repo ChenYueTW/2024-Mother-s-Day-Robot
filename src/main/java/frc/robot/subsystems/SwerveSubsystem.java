@@ -6,6 +6,7 @@ import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
 import com.pathplanner.lib.util.ReplanningConfig;
 
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
@@ -13,8 +14,10 @@ import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.DeviceId.Swerve;
+import frc.robot.lib.IDashboardProvider;
 import frc.robot.DeviceId.Encoder;
 import frc.robot.Constants.MotorReverse;
 import frc.robot.Constants.SwerveConstants;
@@ -22,7 +25,7 @@ import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.EncoderOffset;
 import frc.robot.Constants;
 
-public class SwerveSubsystem extends SubsystemBase {
+public class SwerveSubsystem extends SubsystemBase implements IDashboardProvider {
     private final SwerveModule frontLeft;
     private final SwerveModule frontRight;
     private final SwerveModule backLeft;
@@ -31,6 +34,7 @@ public class SwerveSubsystem extends SubsystemBase {
     private final SwerveDriveOdometry odometry;
 
     public SwerveSubsystem() {
+        this.registerDashboard();
         this.frontLeft = new SwerveModule(
             Swerve.frontLeftDrive,
             Swerve.frontLeftTurn,
@@ -151,10 +155,6 @@ public class SwerveSubsystem extends SubsystemBase {
         return Constants.swerveDriveKinematics.toChassisSpeeds(this.getModuleStates());
     }
 
-    public void resetGyro() {
-        this.gyro.reset();
-    }
-
     public void wait(int ms) {
         try {
             Thread.sleep(ms);
@@ -163,10 +163,21 @@ public class SwerveSubsystem extends SubsystemBase {
         }
     }
 
+    public void resetGyro() {
+        this.gyro.reset();
+    }
+
     public void stopModules() {
         this.frontLeft.stop();
         this.frontRight.stop();
         this.backLeft.stop();
         this.backRight.stop();
+    }
+
+    @Override
+    public void putDashboard() {
+        SmartDashboard.putNumber("Gyro X", this.getPose().getX());
+        SmartDashboard.putNumber("Gyro Y", this.getPose().getY());
+        SmartDashboard.putNumber("Gyro Z", this.getPose().getRotation().getRotations());
     }
 }
